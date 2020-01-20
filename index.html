@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Registration</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+             body{
+                 background-color:lightslategrey;
+             }
+
+             button{
+                
+                  background-color: purple;
+                  color: white;
+                  padding: 8px 5px;
+                  margin: 5px 0;
+                  border: none;
+                  cursor: pointer;
+                  width: 10%;
+           
+            
+             }
+
+            </style>
+    </head>
+    <body onload="init()">
+        <h1>
+            User Registration Page:</h1>
+            <hr>
+        
+            <h3>FirstName:</h3>
+            <input type="text" id="firstname" placeholder="Enter FirstName" required>
+
+            
+            <h3>LastName:</h3>
+            <input type="text" id="lastname" placeholder="Enter LastName" required>
+
+            
+            <h3>Email-Id:</h3>
+            <input type="email" id="email" placeholder="Enter Email" required>
+                      
+                      <br>
+                      <br>
+                      <button type="submit" onclick="onregisterPressed()">Register</button>
+                      
+        <script>
+           function init(){
+                 if(localStorage.studentsRecord){
+                     studentsArray =JSON.parse(localStorage.studentsRecord);
+                     for(var i=0;i<studentsArray.length;i++)
+                     {
+                         var firstname =studentsArray[i].firstname;
+                         var lastname =studentsArray[i].lastname;
+                         var email =studentsArray[i].email;
+                     }
+                 }
+           }
+
+            var studentsArray=[];
+
+        function onregisterPressed()
+        {
+            var firstname=document.getElementById("firstname").value;
+            var lastname=document.getElementById("lastname").value;
+            var email=document.getElementById("email").value;
+                  
+                if(firstname.trim().length<3)
+                {
+                 alert("firstname must be atleast more than three characters"); 
+                 return false;
+                
+                  }
+                else{
+                    true;
+                  }
+
+                  if(lastname.trim().length<3)
+                {
+                 alert("lastname must be atleast more than three characters"); 
+                 return false;
+                
+                  }
+                else{
+                    true;
+            
+                 
+                }
+
+                if(email.trim().length<5)
+                {
+                 alert("enter the valid email-id"); 
+                 return false;
+                
+                  }
+                else{
+                    true;
+            
+                }
+
+          var stuObj={firstname:firstname,lastname:lastname,Email:email};
+          studentsArray.push(stuObj);
+
+          localStorage.studentsRecord = JSON.stringify(studentsArray);
+          
+            
+        }
+
+
+        
+        
+        
+        
+        
+        
+        </script>
+        
+    </body>
+</html>
