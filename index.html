@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +28,18 @@
             
              }
 
+             table{
+                   border: 2px solid black;
+                  width: 500px;
+            
+             }
+             th{
+                 background-color:lightpink;
+             }
+             th,td{
+                  border: 2px solid black;
+                 padding: 10px;
+             }
             </style>
     </head>
     <body onload="init()">
@@ -49,7 +61,18 @@
                       <br>
                       <br>
                       <button type="submit" onclick="onregisterPressed()">Register</button>
-                      
+                        
+                        <table id="reg">
+                            <tr>
+                                <th>FIRSTNAME</th>
+                                <th>LASTNAME</th>
+                                <th>EMAIL-ID</th>
+                            </tr>
+                        </table>
+
+                       
+
+
         <script>
            function init(){
                  if(localStorage.studentsRecord){
@@ -59,6 +82,9 @@
                          var firstname =studentsArray[i].firstname;
                          var lastname =studentsArray[i].lastname;
                          var email =studentsArray[i].email;
+                             table(firstname,lastname,email);
+
+                         
                      }
                  }
            }
@@ -70,7 +96,11 @@
             var firstname=document.getElementById("firstname").value;
             var lastname=document.getElementById("lastname").value;
             var email=document.getElementById("email").value;
-                  
+
+            
+     
+
+
                 if(firstname.trim().length<3)
                 {
                  alert("firstname must be atleast more than three characters"); 
@@ -104,21 +134,35 @@
             
                 }
 
-          var stuObj={firstname:firstname,lastname:lastname,Email:email};
+                table(firstname,lastname,email);
+
+            document.getElementById("firstname").value="";
+            document.getElementById("lastname").value="";
+            document.getElementById("email").value="";
+
+
+          var stuObj={firstname:firstname,lastname:lastname,email:email};
           studentsArray.push(stuObj);
 
           localStorage.studentsRecord = JSON.stringify(studentsArray);
           
+          
             
         }
 
+        function table(firstname,lastname,email){
+           var table=document.getElementById("reg");
 
-        
-        
-        
-        
-        
-        
+            var row=table.insertRow();
+            var FirstNameCell =row.insertCell(0);    
+            var LastNameCell =row.insertCell(1);    
+            var emailCell =row.insertCell(2);    
+
+            FirstNameCell.innerHTML =firstname;
+            LastNameCell.innerHTML =lastname;
+            emailCell.innerHTML =email;
+
+        }
         </script>
         
     </body>
