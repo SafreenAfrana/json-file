@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- <html>
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,11 +21,8 @@
                   border: none;
                   cursor: pointer;
                   width: 10%;
-           
-            
-             }
-
-             table{
+            }
+            table{
                    border: 2px solid black;
                   width: 500px;
             
@@ -40,127 +37,67 @@
             </style>
     </head>
     <body onload="init()">
+         <form  onsubmit="validate()">
         <h1>
             User Registration Page:</h1>
             <hr>
-        
             <h3>FirstName:</h3>
-            <input type="text" id="firstname" placeholder="Enter FirstName" required>
-
-            
+            <input type="text" id="firstname" placeholder="Enter FirstName" pattern="^[a-zA-Z]{3,15}$" required>
             <h3>LastName:</h3>
-            <input type="text" id="lastname" placeholder="Enter LastName" required>
-
-            
+            <input type="text" id="lastname" placeholder="Enter LastName" pattern="^[a-zA-Z ]{3,15}$" required>
             <h3>Email-Id:</h3>
-            <input type="email" id="email" placeholder="Enter Email" required>
-                      
-                      <br>
-                      <br>
-                      <button type="submit" onclick="onregisterPressed()">Register</button>
-                        
-                        <table id="reg">
-                            <tr>
-                                <th>FIRSTNAME</th>
-                                <th>LASTNAME</th>
-                                <th>EMAIL-ID</th>
-                            </tr>
-                        </table>
-
-                       
-
-
-        <script>
+            <input type="email" id="email" placeholder="Enter Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+            <br><br>
+            <button type="submit" value="submit">Submit</button>
+            <table id="reg">
+                <tr>
+                    <th>FIRSTNAME</th>
+                    <th>LASTNAME</th>
+                    <th>EMAIL-ID</th>
+                </tr>
+            </table>
+          <script>
            function init(){
                  if(localStorage.studentsRecord){
                      studentsArray =JSON.parse(localStorage.studentsRecord);
                      for(var i=0;i<studentsArray.length;i++)
                      {
-                         var firstname =studentsArray[i].firstname;
-                         var lastname =studentsArray[i].lastname;
-                         var email =studentsArray[i].email;
-                             table(firstname,lastname,email);
-
-                         
+                         var firstname = studentsArray[i].firstname;
+                         var lastname  = studentsArray[i].lastname;
+                         var email     = studentsArray[i].email;
+                         table(firstname,lastname,email);
                      }
                  }
            }
 
-            var studentsArray=[];
+          var studentsArray=[];
 
-        function onregisterPressed()
-        {
-            var firstname=document.getElementById("firstname").value;
-            var lastname=document.getElementById("lastname").value;
-            var email=document.getElementById("email").value;
+          function validate()
+          {
+            var firstname = document.getElementById("firstname").value;
+            var lastname  = document.getElementById("lastname").value;
+            var email     = document.getElementById("email").value;
+            table(firstname,lastname,email);
+            var stuObj={firstname:firstname,lastname:lastname,email:email};
+            studentsArray.push(stuObj);
+            localStorage.studentsRecord = JSON.stringify(studentsArray);
+            document.getElementById("firstname").value = "";
+            document.getElementById("lastname").value  = "";
+            document.getElementById("email").value     = "";
+          }
 
-            
-     
-
-
-                if(firstname.trim().length<3)
-                {
-                 alert("firstname must be atleast more than three characters"); 
-                 return false;
-                
-                  }
-                else{
-                    true;
-                  }
-
-                  if(lastname.trim().length<3)
-                {
-                 alert("lastname must be atleast more than three characters"); 
-                 return false;
-                
-                  }
-                else{
-                    true;
-            
-                 
-                }
-
-                if(email.trim().length<5)
-                {
-                 alert("enter the valid email-id"); 
-                 return false;
-                
-                  }
-                else{
-                    true;
-            
-                }
-
-                table(firstname,lastname,email);
-
-
-
-          var stuObj={firstname:firstname,lastname:lastname,email:email};
-          studentsArray.push(stuObj);
-
-          localStorage.studentsRecord = JSON.stringify(studentsArray);
-          
-          
-            document.getElementById("firstname").value="";
-            document.getElementById("lastname").value="";
-            document.getElementById("email").value="";
-            
-        }
-
-        function table(firstname,lastname,email){
-           var table=document.getElementById("reg");
-
-            var row=table.insertRow();
-            var FirstNameCell =row.insertCell(0);    
-            var LastNameCell =row.insertCell(1);    
-            var emailCell =row.insertCell(2);    
-
+          function table(firstname,lastname,email) 
+          {
+            var table  = document.getElementById("reg");
+            var row    = table.insertRow();
+            var FirstNameCell = row.insertCell(0);    
+            var LastNameCell  = row.insertCell(1);    
+            var emailCell     = row.insertCell(2);    
             FirstNameCell.innerHTML =firstname;
             LastNameCell.innerHTML =lastname;
             emailCell.innerHTML =email;
-
-        }
-        </script>
-        
+          }
+         </script>
+        </form>
     </body>
 </html>
